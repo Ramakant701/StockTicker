@@ -1,15 +1,15 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var logger = require('morgan');
+let createError = require('http-errors');
+let express = require('express');
+let path = require('path');
+let logger = require('morgan');
 require('dotenv').config();
-var indexRouter = require('./routes/index');
-var stocksRouter = require('./routes/stocks');
-var loginRouter = require('./routes/login');
+let indexRouter = require('./routes/index');
+let stocksRouter = require('./routes/stocks');
+let loginRouter = require('./routes/login');
 const auth = require("./authenticate");
-var app = express();
-var cookieParser = require('cookie-parser');
-var session = require('express-session');
+let app = express();
+let cookieParser = require('cookie-parser');
+let session = require('express-session');
 app.use(cookieParser());
 app.use(session({
     secret: process.env.SECRET, // just a long random string

@@ -13,8 +13,13 @@ const auth = async (req, res, next) => {
             const userNameFromClient = userPass[0];
             const passwordFromClient = userPass[1];
             //session exists - authenticated - valid only from the same session - if browser/postman is closed - new session will be created
+            debugger;
             if (req.session && req.session.userName === userNameFromClient && req.session.passwordFromClient === passwordFromClient) {
-                next();
+                if (req.method === "PUT" && !req.session.permission) {
+                    res.sendStatus(401);
+                } else {
+                    next();
+                }
             } else {
                 req.session.userName = "";
                 req.session.permission = "";
@@ -25,7 +30,11 @@ const auth = async (req, res, next) => {
                         req.session.userName = userName;
                         req.session.passwordFromClient = passwordFromClient;
                         req.session.permission = permission;
-                        next();
+                        if (req.method === "PUT" && !permission) {
+                            res.sendStatus(401);
+                        } else {
+                            next();
+                        }
                     } else {
                         req.session.destroy();
                         res.sendStatus(401);

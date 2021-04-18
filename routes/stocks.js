@@ -1,6 +1,6 @@
-var express = require('express');
-var stocks = require('../constant/stocks.storage');
-var router = express.Router();
+let express = require('express');
+let stocks = require('../constant/stocks.storage');
+let router = express.Router();
 /* GET users listing. */
 router.get('/', function (req, res, next) {
     res.json(stocks);
